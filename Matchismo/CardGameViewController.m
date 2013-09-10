@@ -18,16 +18,37 @@
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stateLabel;
+@property (nonatomic) int mode;
 
 @end
 
 @implementation CardGameViewController
 
+#define TWO_MATCH_MODE 2
+#define THREE_MATCH_MODE 3
+
+-(int)mode
+{
+    if (!_mode) _mode = TWO_MATCH_MODE;
+    return _mode;
+}
+
+
 - (CardMatchingGame *)game
 {
     if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                                          usingDeck:[[PlayingCardDeck alloc] init]];
+                                                          usingDeck:[[PlayingCardDeck alloc] init]
+                                                            andMode:self.mode];
     return _game;
+}
+
+- (IBAction)modeChanged:(UISegmentedControl *)sender {
+    self.mode = [sender selectedSegmentIndex] == 0 ? TWO_MATCH_MODE : THREE_MATCH_MODE;
+    
+    _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
+                                              usingDeck:[[PlayingCardDeck alloc] init]
+                                                andMode:self.mode];
+    [self updateUI];
 }
 
 - (void) updateUI

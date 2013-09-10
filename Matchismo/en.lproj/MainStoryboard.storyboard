@@ -304,13 +304,16 @@
                                     <action selector="redealCards:" destination="2" eventType="touchUpInside" id="B44-FP-FnA"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="KzR-pb-yV8">
-                                <rect key="frame" x="122" y="18" width="168" height="44"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="KzR-pb-yV8">
+                                <rect key="frame" x="132" y="18" width="168" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="2-match"/>
                                     <segment title="3-match"/>
                                 </segments>
+                                <connections>
+                                    <action selector="modeChanged:" destination="2" eventType="valueChanged" id="soF-Ae-dfS"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -346,6 +349,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CardGameViewController.h"/>
             <relationships>
                 <relationship kind="action" name="flipCard:" candidateClass="UIButton"/>
+                <relationship kind="action" name="modeChanged:" candidateClass="UISegmentedControl"/>
                 <relationship kind="action" name="redealCards:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="flipsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="scoreLabel" candidateClass="UILabel"/>

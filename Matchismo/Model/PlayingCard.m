@@ -22,9 +22,66 @@
         else if (otherCard.rank == self.rank) {
             score = 4;
         }
+        else {
+            score = -1;
+        }            
+    }
+    else if ([otherCards count] == 2) {
+        int ranksMatched = [PlayingCard ranksMatched:[otherCards arrayByAddingObject:self]];
+        int suitsMatched = [PlayingCard suitsMatched:[otherCards arrayByAddingObject:self]];
+        
+        if (ranksMatched == 3) {
+            score = 10;
+        } else if (ranksMatched == 2 && suitsMatched == 2) {
+            score = 8;
+        } else if (ranksMatched == 2) {
+            score = 3;
+        } else if (suitsMatched == 3) {
+            score = 6;
+        } else if (suitsMatched == 2) {
+            score = 1;
+        } else {
+            score = -1;
+        }
     }
     
     return score; 
+}
+
++ (int)ranksMatched:(NSArray *)cards
+{
+    NSCountedSet *ranks = [NSCountedSet setWithArray:[cards valueForKeyPath:@"rank"]];
+    
+    NSNumber *maxRank = nil;
+    NSUInteger maxCount = 0;
+    
+    for (NSNumber *rank in ranks) {
+        NSUInteger rankCount = [ranks countForObject:rank];
+        if (rankCount > maxCount) {
+            maxRank = rank;
+            maxCount = rankCount;
+        }
+    }
+    
+    return maxCount;
+}
+
++ (int)suitsMatched:(NSArray *)cards
+{
+    NSCountedSet *suits = [NSCountedSet setWithArray:[cards valueForKeyPath:@"suit"]];
+    
+    NSString *maxSuit = nil;
+    NSUInteger maxCount = 0;
+    
+    for (NSString *suit in suits) {
+        NSUInteger suitCount = [suits countForObject:suit];
+        if (suitCount > maxCount) {
+            maxSuit = suit;
+            maxCount = suitCount;
+        }
+    }
+    
+    return maxCount;
 }
 
 - (NSString *)contents
