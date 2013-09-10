@@ -67,6 +67,19 @@
 - (void)setCardButtons:(NSArray *)cardButtons
 {
     _cardButtons = cardButtons;
+    UIImage* backImage = [UIImage imageNamed:@"cardback.png"];
+    
+    // Create a 1x1 UIImage at runtime
+    UIGraphicsBeginImageContext((CGSize){1.0f,1.0f});
+    UIImage *transparentImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    for (UIButton *cardButton in cardButtons) {
+        [cardButton setImage:backImage forState:UIControlStateNormal];
+        [cardButton setImage:transparentImage forState:UIControlStateSelected];
+        [cardButton setImage:transparentImage forState:UIControlStateSelected|UIControlStateDisabled];
+        
+    }
     [self updateUI];
 }
 
